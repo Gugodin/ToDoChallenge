@@ -10,7 +10,7 @@ class AppProyect extends StatelessWidget {
     return MaterialApp.router(
       title: 'ToDoProyect',
       theme: themeData,
-      // darkTheme: themeAppDark,
+      debugShowCheckedModeBanner: false,
       routerConfig: appRouter.config(),
     );
   }

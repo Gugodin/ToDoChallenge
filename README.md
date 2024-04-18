@@ -13,5 +13,6 @@ Como se esta utilizando codigo auto generado de flutter de los paquetes
     codigo auto generado:
 
         `flutter packages pub run build_runner watch`
+        `flutter packages pub run build_runner build`
         `flutter pub run build_runner watch`
 

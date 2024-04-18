@@ -1,25 +1,25 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'filter_task_provider.dart';
+part of 'task_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$taskFilterHash() => r'6f99ce4bca1eba034cc5a708668e6bb130559de7';
+String _$taskHash() => r'f27b6f839eeffaa8432446c090b3634f29688998';
 
-/// See also [TaskFilter].
-@ProviderFor(TaskFilter)
-final taskFilterProvider =
-    AutoDisposeNotifierProvider<TaskFilter, FilterType>.internal(
-  TaskFilter.new,
-  name: r'taskFilterProvider',
+/// See also [Task].
+@ProviderFor(Task)
+final taskProvider =
+    AutoDisposeNotifierProvider<Task, List<TaskModel>>.internal(
+  Task.new,
+  name: r'taskProvider',
   debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$taskFilterHash,
+      const bool.fromEnvironment('dart.vm.product') ? null : _$taskHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$TaskFilter = AutoDisposeNotifier<FilterType>;
+typedef _$Task = AutoDisposeNotifier<List<TaskModel>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

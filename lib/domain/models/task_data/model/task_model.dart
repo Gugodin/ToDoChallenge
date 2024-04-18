@@ -2,14 +2,16 @@ import 'dart:convert';
 
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 class TaskModel {
+  int? id;
   String title;
   bool isComplete;
   DateTime? dueDate;
   String? comments;
   String? description;
   String? tags;
-  
+
   TaskModel({
+    this.id,
     required this.title,
     required this.isComplete,
     this.dueDate,
@@ -31,16 +33,19 @@ class TaskModel {
 
   factory TaskModel.fromMap(Map<String, dynamic> map) {
     return TaskModel(
+      id: map['id'] as int,
       title: map['title'] as String,
-      isComplete: map['is_complete'] == 1? true:false,
+      isComplete: map['is_complete'] == 1 ? true : false,
       dueDate: map['due_date'] != null ? DateTime.parse(map['due_date']) : null,
       comments: map['comments'] != null ? map['comments'] as String : null,
-      description: map['description'] != null ? map['description'] as String : null,
+      description:
+          map['description'] != null ? map['description'] as String : null,
       tags: map['tags'] != null ? map['tags'] as String : null,
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory TaskModel.fromJson(String source) => TaskModel.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory TaskModel.fromJson(String source) =>
+      TaskModel.fromMap(json.decode(source) as Map<String, dynamic>);
 }

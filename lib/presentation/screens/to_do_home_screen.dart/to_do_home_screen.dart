@@ -12,8 +12,8 @@ class ToDoHomeScreen extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
-          Expanded(flex: 1, child: Container()),
-          const Expanded(flex: 2, child: TaskListSection()),
+          Expanded(flex: 2, child: Container()),
+          const Expanded(flex: 5, child: TaskListSection()),
         ],
       ),
     );

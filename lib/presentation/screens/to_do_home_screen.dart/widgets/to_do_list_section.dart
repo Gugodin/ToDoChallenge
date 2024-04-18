@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../common/common.dart';
 import '../../../providers/providers.dart';
 
 class TaskListSection extends StatelessWidget {
@@ -24,14 +25,29 @@ class TaskListSection extends StatelessWidget {
                     .copyWith(fontWeight: FontWeight.w500),
               )),
           const Expanded(flex: 2, child: _SegmentButtonSection()),
-          Expanded(
-              flex: 12,
-              child: Container(
-                color: Colors.red,
-              )),
+          const Expanded(flex: 12, child: _ListTaskSection()),
         ],
       ),
     );
+  }
+}
+
+class _ListTaskSection extends ConsumerWidget {
+  const _ListTaskSection();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final taskList = ref.watch(taskProvider);
+
+    return ListView.separated(
+        padding: EdgeInsets.zero,
+        itemBuilder: (context, index) {
+          return TaskCardWidget(task: taskList[index]);
+        },
+        separatorBuilder: (context, index) => const SizedBox(
+              height: 20,
+            ),
+        itemCount: taskList.length);
   }
 }
 
@@ -43,7 +59,7 @@ class _SegmentButtonSection extends ConsumerWidget {
     final currentFilter = ref.watch(taskFilterProvider);
 
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 15.0),
+      padding: const EdgeInsets.symmetric(vertical: 20.0),
       child: SegmentedButton<FilterType>(
         segments: const [
           ButtonSegment(

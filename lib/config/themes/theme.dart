@@ -1,30 +1,21 @@
 import 'package:flutter/material.dart';
 
-// For backgrounds
-const backGroundColor = Color(0xFF070333);
-const darkColor = Color(0xFF28216A);
-
-// For elements
-const brigthColor = Color(0xFF4D3ECC);
-
-// For fonts
-const lighterColor = Color(0xFFCCCAEB);
-const lightColor = Color(0xFFA8A5CB);
+import '../colors/colors.dart';
 
 final themeData = ThemeData(
     brightness: Brightness.dark,
-    colorScheme: const ColorScheme.dark(
-        background: backGroundColor,
-        primary: brigthColor,
-        secondary: darkColor),
-    scaffoldBackgroundColor: backGroundColor,
+    colorScheme: ColorScheme.dark(
+        background: ColorsApp.backGroundColor,
+        primary: ColorsApp.brigthColor,
+        secondary: ColorsApp.darkColor),
+    scaffoldBackgroundColor: ColorsApp.backGroundColor,
 
     // Segmented button theme
     segmentedButtonTheme: SegmentedButtonThemeData(
       style: ButtonStyle(
           backgroundColor: MaterialStateProperty.resolveWith((states) {
             if (states.contains(MaterialState.selected)) {
-              return brigthColor;
+              return ColorsApp.brigthColor;
             }
             return Colors.transparent;
           }),
@@ -43,14 +34,14 @@ final themeData = ThemeData(
           iconColor: const MaterialStatePropertyAll(Colors.white)),
     ),
     // Text theme
-    textTheme: const TextTheme(
+    textTheme: TextTheme(
         // LABELS
-        labelLarge: TextStyle(
+        labelLarge: const TextStyle(
             fontWeight: FontWeight.bold, fontSize: 30, color: Colors.white),
-        labelMedium: TextStyle(
-            fontSize: 16, color: lighterColor, fontWeight: FontWeight.w400),
+        labelMedium: const TextStyle(
+            fontSize: 25, color: Colors.white, fontWeight: FontWeight.w600),
         labelSmall: TextStyle(
-          color: lightColor,
-          fontWeight: FontWeight.w300,
+          color: ColorsApp.lightColor,
+          fontWeight: FontWeight.w500,
           fontSize: 14,
         )));
