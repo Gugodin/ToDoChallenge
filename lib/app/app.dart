@@ -1,21 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../config/routes/routes.dart';
-
-// class AppProyect extends StatelessWidget {
-//    AppProyect({super.key});
-
-//   // final appRouter = AppRouter();
-//   @override
-//   Widget build(BuildContext context, WidgetRef ref) {
-//     return MaterialApp.router(
-//       title: 'Proyect',
-//       theme: themeAppLight,
-//       darkTheme: themeAppDark,
-//       routerConfig: appRouter.config(),
-//     );
-//   }
-// }
+import '../config/config.dart';
 
 class AppProyect extends StatelessWidget {
   AppProyect({super.key});
@@ -24,7 +9,7 @@ class AppProyect extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       title: 'ToDoProyect',
-      // theme: themeAppLight,
+      theme: themeData,
       // darkTheme: themeAppDark,
       routerConfig: appRouter.config(),
     );
