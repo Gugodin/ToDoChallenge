@@ -59,7 +59,6 @@ class TaskCardWidget extends ConsumerWidget {
         )
       ],
     );
-    // return Dismissible(key: Key(task.id.toString()), child: child);
   }
 }
 
@@ -181,7 +180,7 @@ class _IconSection extends StatelessWidget {
               onPressed: () {},
               padding: const EdgeInsets.all(20),
               icon: const Icon(
-                Icons.circle,
+                Icons.circle_outlined,
                 size: 30,
               ),
             ),

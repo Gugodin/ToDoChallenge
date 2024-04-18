@@ -27,3 +27,7 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  # LOCAL ASSETS
+  assets:
+    - 'assets/gifs/'
+    - 'assets/images/'
