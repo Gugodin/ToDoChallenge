@@ -53,6 +53,9 @@ final themeData = ThemeData(
               EdgeInsets.symmetric(vertical: 5, horizontal: 10)),
           iconColor: const MaterialStatePropertyAll(Colors.white)),
     ),
+    // Circular progres indicator theme
+    progressIndicatorTheme: const ProgressIndicatorThemeData(circularTrackColor: Colors.white),
+
     // Text theme
     textTheme: TextTheme(
         // LABELS

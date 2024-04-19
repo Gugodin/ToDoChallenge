@@ -38,16 +38,30 @@ class _ListTaskSection extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final taskList = ref.watch(filteredTaskProvider);
-
-    return ListView.separated(
-        padding: EdgeInsets.zero,
-        itemBuilder: (context, index) {
-          return TaskCardWidget(task: taskList[index]);
-        },
-        separatorBuilder: (context, index) => const SizedBox(
-              height: 20,
-            ),
-        itemCount: taskList.length);
+    final taskPetition = ref.watch(taskProvider);
+    return taskPetition.when(
+      data: (data) {
+        return taskList.isEmpty
+            ? const Center(
+                child: Text('No tienes tareas.'),
+              )
+            : ListView.separated(
+                padding: EdgeInsets.zero,
+                itemBuilder: (context, index) {
+                  return TaskCardWidget(task: taskList[index]);
+                },
+                separatorBuilder: (context, index) => const SizedBox(
+                      height: 20,
+                    ),
+                itemCount: taskList.length);
+      },
+      error: (error, stackTrace) => const Center(
+        child: Text('Hubo un error en la petición.'),
+      ),
+      loading: () => const Center(
+        child: CircularProgressIndicator(),
+      ),
+    );
   }
 }
 

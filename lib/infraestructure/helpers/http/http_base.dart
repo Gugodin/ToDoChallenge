@@ -65,7 +65,7 @@ Future<ReturnHttp> httpBase(
   /* Solamente si hay headers extra se agregaran al _headersDefault.*/
   if (headers != null) _headersDefault.addAll(headers.headersData);
 
-  /* Solamente si el parametro replaceHeaders es existe y es true
+  /* Solamente si el parametro replaceHeaders existe y es true
   se remplaza los headers por los _headersDefault.*/
   if (headers != null) {
     if (headers.replaceHeaders) {
@@ -121,7 +121,20 @@ Future<ReturnHttp> httpBase(
         case TypeHTPP.GET:
           /* La petición GET solamente puede llevar queryparams y headers
           por regla de funciones HTTP*/
-          response = await http.get(url, headers: _headersDefault);
+          // response = await http.get(url, headers: _headersDefault,);
+          var req = http.Request('GET', url);
+          if (body != null) {
+            Map<String, String> bodyToSend = {};
+            body.forEach((key, value) {
+              bodyToSend[key] = value.toString();
+            });
+            req.bodyFields = bodyToSend;
+          }
+          req.headers.addAll(_headersDefault);
+          var res = await req.send();
+
+          response = await http.Response.fromStream(res);
+
           break;
         case TypeHTPP.POST:
           response = await http.post(url,
@@ -138,11 +151,8 @@ Future<ReturnHttp> httpBase(
         default:
           return ReturnHttp(error: null, message: null, data: null);
       }
-      print('HEADERS');
-      print(response.headers);
-      print('BODY');
-      print(body);
-      if (response.statusCode == 200) {
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
         /* Si la petición fue exitosa, se procede a generar el mapa
             del body con la data correspondiente*/
         return ReturnHttp(
@@ -150,8 +160,6 @@ Future<ReturnHttp> httpBase(
       } else {
         /* Si la petición no fue exitosa, se procede a generar una
             respuesta con el error asignado a su respectivo statusCode*/
-        print('LO MAS SEGURO ERROR');
-        print(response.body);
         return getErrorFromStatusCode(response);
       }
     } else {

@@ -26,21 +26,44 @@ class HeaderDescriptionSection extends ConsumerWidget {
           _ContainerDescription(
             theme: theme,
             title: 'Tareas por hacer: ',
-            value: taskList
-                .where((element) => !element.isComplete)
-                .toList()
-                .length
-                .toString(),
+            value: taskList.when(
+              data: (data) => Text(data
+                  .where((element) => !element.isComplete)
+                  .toList()
+                  .length
+                  .toString()),
+              error: (error, stackTrace) => Icon(Icons.error),
+              loading: () => const SizedBox(
+                  width: 10,
+                  height: 10,
+                  child: CircularProgressIndicator(
+                    strokeWidth: 1,
+                  )),
+            ),
+            // value: taskList
+            //     .where((element) => !element.isComplete)
+            //     .toList()
+            //     .length
+            //     .toString(),
             filter: FilterType.undone,
           ),
           _ContainerDescription(
             theme: theme,
             title: 'Tareas hechas: ',
-            value: taskList
-                .where((element) => element.isComplete)
-                .toList()
-                .length
-                .toString(),
+            value: taskList.when(
+              data: (data) => Text(data
+                  .where((element) => element.isComplete)
+                  .toList()
+                  .length
+                  .toString()),
+              error: (error, stackTrace) => Icon(Icons.error),
+              loading: () => const SizedBox(
+                  width: 10,
+                  height: 10,
+                  child: CircularProgressIndicator(
+                    strokeWidth: 1,
+                  )),
+            ),
             filter: FilterType.done,
           ),
         ],
@@ -51,7 +74,7 @@ class HeaderDescriptionSection extends ConsumerWidget {
 
 class _ContainerDescription extends ConsumerWidget {
   final String title;
-  final String value;
+  final Widget value;
   final FilterType filter;
   const _ContainerDescription({
     required this.filter,
@@ -88,7 +111,7 @@ class _ContainerDescription extends ConsumerWidget {
                   title,
                   style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
-                Text(value),
+                value
               ],
             ),
           ),

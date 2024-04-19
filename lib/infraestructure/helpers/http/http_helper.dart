@@ -8,9 +8,11 @@ class HttpHelper {
     bool authorization = false,
     Headers? headers,
     Map<String, String>? queryParameters,
+    Map<String, dynamic>? body,
   }) async {
     final response = await httpBase(
         type: TypeHTPP.GET,
+        body: body,
         path: url,
         headers: headers,
         baseUrl: baseUrl,

@@ -7,7 +7,7 @@ class TaskModel {
   int? id;
   String title;
   bool isComplete;
-  DateTime? dueDate;
+  String? dueDate;
   String? comments;
   String? description;
   String? tags;
@@ -27,7 +27,7 @@ class TaskModel {
       'token':'javier',
       'title': title,
       'is_complete': isComplete == true?1:0,
-      'due_date': dueDate != null ? DateHelper.formatDDMMYYYY(dueDate!): null,
+      'due_date': dueDate,
       'comments': comments,
       'description': description,
       'tags': tags,
@@ -39,7 +39,7 @@ class TaskModel {
       id: map['id'] as int,
       title: map['title'] as String,
       isComplete: map['is_complete'] == 1 ? true : false,
-      dueDate: map['due_date'] != null ? DateTime.parse(map['due_date']) : null,
+      dueDate: map['due_date'] != null ? map['due_date'] as String: null,
       comments: map['comments'] != null ? map['comments'] as String : null,
       description:
           map['description'] != null ? map['description'] as String : null,

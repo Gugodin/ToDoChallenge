@@ -134,7 +134,7 @@ class _DescriptionTaskSection extends StatelessWidget {
                     ? Align(
                         alignment: Alignment.topRight,
                         child: Text(
-                          DateHelper.formatDDMMYYYY(task.dueDate!),
+                          task.dueDate!,
                           style: theme.textTheme.labelSmall!.copyWith(
                             color: Colors.white,
                             fontSize: 12,

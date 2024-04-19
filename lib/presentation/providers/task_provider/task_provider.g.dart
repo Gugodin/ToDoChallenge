@@ -34,12 +34,12 @@ final filteredTaskProvider = AutoDisposeProvider<List<TaskModel>>.internal(
 );
 
 typedef FilteredTaskRef = AutoDisposeProviderRef<List<TaskModel>>;
-String _$taskHash() => r'5476047d4052bb91cc7b5f4fadc88041a249a1a7';
+String _$taskHash() => r'0fbd1cf55e59b57ff3dbcff261b8401e2e74bc03';
 
 /// See also [Task].
 @ProviderFor(Task)
 final taskProvider =
-    AutoDisposeNotifierProvider<Task, List<TaskModel>>.internal(
+    AutoDisposeAsyncNotifierProvider<Task, List<TaskModel>>.internal(
   Task.new,
   name: r'taskProvider',
   debugGetCreateSourceHash:
@@ -48,6 +48,6 @@ final taskProvider =
   allTransitiveDependencies: null,
 );
 
-typedef _$Task = AutoDisposeNotifier<List<TaskModel>>;
+typedef _$Task = AutoDisposeAsyncNotifier<List<TaskModel>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
