@@ -20,8 +20,12 @@ class TaskElevatedButton extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 15),
       child: ElevatedButton(
-          onPressed: onTap,
-          style: ElevatedButton.styleFrom(backgroundColor: backgrondColor,),
+          onPressed: () {
+            onTap();
+          },
+          style: ElevatedButton.styleFrom(
+            backgroundColor: backgrondColor,
+          ),
           child: Text(
             title,
             style: Theme.of(context)

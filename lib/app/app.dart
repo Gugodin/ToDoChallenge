@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:bot_toast/bot_toast.dart';
 import '../config/config.dart';
 
 class AppProyect extends StatelessWidget {
@@ -10,6 +10,7 @@ class AppProyect extends StatelessWidget {
     return MaterialApp.router(
       title: 'ToDoProyect',
       theme: themeData,
+      builder: BotToastInit(),
       debugShowCheckedModeBanner: false,
       routerConfig: appRouter.config(),
     );

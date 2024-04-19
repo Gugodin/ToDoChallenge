@@ -21,17 +21,7 @@ class ToDoHomeScreen extends ConsumerWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          print('Realizando peticion');
-          showBottomModalTask(
-              context,
-              IsEditingTaks(
-                  id: 10,
-                  titleTask: 'Tarea edicion',
-                  isCompleted: true,
-                  comments: 'Comentario edicion',
-                  description: 'Descripcion edicion',
-                  dueDate: '2222-22-22',
-                  tags: 'tags'));
+          showBottomModalTask(context);
         },
         child: const Icon(
           Icons.add,

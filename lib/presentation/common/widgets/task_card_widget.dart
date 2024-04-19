@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:todoapp/config/colors/colors.dart';
+import 'package:todoapp/presentation/common/modals/show_bottom_modal_task.dart';
 
 import '../../../domain/domain.dart';
 import '../../../infraestructure/helpers/helpers.dart';
@@ -28,6 +29,16 @@ class TaskCardWidget extends ConsumerWidget {
             child: InkWell(
               onTap: () {
                 print('Editar');
+                showBottomModalTask(
+                    context,
+                    IsEditingTaks(
+                        id: 10,
+                        titleTask: 'Tarea edicion',
+                        isCompleted: true,
+                        comments: 'Comentario edicion',
+                        description: 'Descripcion edicion',
+                        dueDate: '2222-22-22',
+                        tags: 'tags'));
               },
               borderRadius: BorderRadius.circular(15.0),
               splashColor: Colors.grey[500],
@@ -70,11 +81,11 @@ class _DeleteButtonTask extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Positioned(
-        top: -15,
-        right: -18,
+        top: -20,
+        right: -40,
         child: ElevatedButton(
           onPressed: () {
-            print('ELIMINAR TASK');
+            NotificationHelper.instance.deleteTaskNoti();
           },
           style: ElevatedButton.styleFrom(
               minimumSize: const Size(30, 30),

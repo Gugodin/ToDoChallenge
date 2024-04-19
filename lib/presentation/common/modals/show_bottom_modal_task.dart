@@ -1,12 +1,12 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:todoapp/infraestructure/helpers/helpers.dart';
 
 import '../common.dart';
 
 Future<void> showBottomModalTask(BuildContext context,
     [IsEditingTaks? editingData]) async {
-  final respModal = showModalBottomSheet(
+  showModalBottomSheet(
     context: context,
     isScrollControlled: true,
     shape: const RoundedRectangleBorder(
@@ -40,11 +40,7 @@ class _ModalTaskState extends State<ModalTask> {
   @override
   void initState() {
     super.initState();
-    // Verificamos si estamos editando, si es asi rellenamos datos
-    print('Edit?');
-    print(widget.editingData);
     if (widget.editingData != null) {
-      print('modificamos');
       titleController =
           TextEditingController(text: widget.editingData!.titleTask);
       commentsController =
@@ -114,8 +110,12 @@ class _ModalTaskState extends State<ModalTask> {
                 onTap: () {
                   if (widget.editingData == null) {
                     print('CREAR');
+                    NotificationHelper.instance.createTaskNoti();
+                    Navigator.pop(context);
                   } else {
                     print('EDITAR');
+                    NotificationHelper.instance.updateTaskNoti();
+                    Navigator.pop(context);
                   }
                 },
                 title: widget.editingData == null ? 'Crear' : 'Editar',
@@ -126,6 +126,7 @@ class _ModalTaskState extends State<ModalTask> {
   }
 }
 
+// ignore: must_be_immutable
 class _TextFieldsSection extends StatefulWidget {
   final TextEditingController titleController;
   final TextEditingController commentsController;
