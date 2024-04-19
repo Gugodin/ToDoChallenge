@@ -9,6 +9,26 @@ final themeData = ThemeData(
         primary: ColorsApp.brigthColor,
         secondary: ColorsApp.darkColor),
     scaffoldBackgroundColor: ColorsApp.backGroundColor,
+    bottomSheetTheme: BottomSheetThemeData(
+        backgroundColor: ColorsApp.backGroundColor,
+        modalBarrierColor: Colors.black.withOpacity(0.2)),
+    //Text Form Field theme
+
+    inputDecorationTheme: InputDecorationTheme(
+      filled: true,
+      fillColor: ColorsApp.brigthColor,
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(10.0),
+        borderSide: BorderSide.none,
+      ),
+    ),
+
+    //Elevated button theme
+    elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ButtonStyle(
+      padding: MaterialStatePropertyAll(EdgeInsets.symmetric(horizontal: 40)),
+      backgroundColor: MaterialStatePropertyAll(ColorsApp.brigthColor),
+    )),
 
     // Segmented button theme
     segmentedButtonTheme: SegmentedButtonThemeData(

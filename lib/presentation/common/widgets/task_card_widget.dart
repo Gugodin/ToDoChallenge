@@ -1,10 +1,9 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:todoapp/config/colors/colors.dart';
 
-import '../../domain/domain.dart';
-import '../../infraestructure/helpers/helpers.dart';
+import '../../../domain/domain.dart';
+import '../../../infraestructure/helpers/helpers.dart';
 
 class TaskCardWidget extends ConsumerWidget {
   final TaskModel task;

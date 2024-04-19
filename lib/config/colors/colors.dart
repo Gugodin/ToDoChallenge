@@ -6,6 +6,7 @@ class ColorsApp {
   static Color darkColor = const Color(0xFF28216A);
   static Color doneCardColor = const Color(0xFF7B76AB);
   static Color unDoneCardColor = const Color(0xFF4D3ECC);
+  static Color bottomSheetBackGround = const Color(0xFF544F8B);
 
 // For elements
   static Color brigthColor = const Color(0xFF4D3ECC);

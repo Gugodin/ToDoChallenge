@@ -6,7 +6,6 @@ class HeaderSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return const Column(
       children: [
         Expanded(flex: 2, child: _BurgerButtonSection()),

@@ -8,7 +8,7 @@ class HeaderDescriptionSection extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
-
+    final taskList = ref.watch(taskProvider);
     return Padding(
       padding: const EdgeInsets.only(left: 10.0, bottom: 15),
       child: Column(
@@ -25,15 +25,23 @@ class HeaderDescriptionSection extends ConsumerWidget {
           ),
           _ContainerDescription(
             theme: theme,
-            title: 'Tareas hechas: ',
-            value: '2',
-            filter: FilterType.done,
+            title: 'Tareas por hacer: ',
+            value: taskList
+                .where((element) => !element.isComplete)
+                .toList()
+                .length
+                .toString(),
+            filter: FilterType.undone,
           ),
           _ContainerDescription(
             theme: theme,
-            title: 'Tareas por hacer: ',
-            value: '1',
-            filter: FilterType.undone,
+            title: 'Tareas hechas: ',
+            value: taskList
+                .where((element) => element.isComplete)
+                .toList()
+                .length
+                .toString(),
+            filter: FilterType.done,
           ),
         ],
       ),
@@ -58,9 +66,8 @@ class _ContainerDescription extends ConsumerWidget {
   Widget build(BuildContext context, ref) {
     Size size = MediaQuery.of(context).size;
     return Container(
-      margin: EdgeInsets.only(top: 10),
+      margin: const EdgeInsets.only(top: 10),
       width: size.width * 0.4,
-      // padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
       decoration: BoxDecoration(
           color: theme.colorScheme.primary,
           borderRadius: BorderRadius.circular(10)),
@@ -79,7 +86,7 @@ class _ContainerDescription extends ConsumerWidget {
               children: [
                 Text(
                   title,
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                  style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
                 Text(value),
               ],

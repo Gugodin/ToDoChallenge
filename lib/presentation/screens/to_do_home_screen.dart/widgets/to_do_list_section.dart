@@ -37,7 +37,7 @@ class _ListTaskSection extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final taskList = ref.watch(taskProvider);
+    final taskList = ref.watch(filteredTaskProvider);
 
     return ListView.separated(
         padding: EdgeInsets.zero,
@@ -69,15 +69,15 @@ class _SegmentButtonSection extends ConsumerWidget {
                 style: TextStyle(color: Colors.white),
               )),
           ButtonSegment(
-              value: FilterType.done,
-              label: Text(
-                'Hechas',
-                style: TextStyle(color: Colors.white),
-              )),
-          ButtonSegment(
               value: FilterType.undone,
               label: Text(
                 'Sin hacer',
+                style: TextStyle(color: Colors.white),
+              )),
+          ButtonSegment(
+              value: FilterType.done,
+              label: Text(
+                'Hechas',
                 style: TextStyle(color: Colors.white),
               )),
         ],

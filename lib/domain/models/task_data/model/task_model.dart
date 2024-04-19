@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import '../../../../infraestructure/helpers/helpers.dart';
+
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 class TaskModel {
   int? id;
@@ -13,7 +15,7 @@ class TaskModel {
   TaskModel({
     this.id,
     required this.title,
-    required this.isComplete,
+    this.isComplete = false,
     this.dueDate,
     this.comments,
     this.description,
@@ -22,9 +24,10 @@ class TaskModel {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
+      'token':'javier',
       'title': title,
-      'is_complete': isComplete,
-      'due_date': dueDate?.millisecondsSinceEpoch,
+      'is_complete': isComplete == true?1:0,
+      'due_date': dueDate != null ? DateHelper.formatDDMMYYYY(dueDate!): null,
       'comments': comments,
       'description': description,
       'tags': tags,

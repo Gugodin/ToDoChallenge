@@ -7,7 +7,6 @@ import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 import '../../../config/urls/urls.dart';
 
-
 // Tipos de PETICIONES que se pueden realizar
 // ignore: constant_identifier_names
 enum TypeHTPP { GET, POST, PUT, DELETE }
@@ -94,7 +93,7 @@ Future<ReturnHttp> httpBase(
   //   _headersDefault['Authorization'] = 'Bearer $token';
   // }
 
-  //////////////////////////////////// 
+  ////////////////////////////////////
 
   /* El response se crea solamente para reasignarle el valor una vez
   la peticion ha sido completada*/
@@ -139,7 +138,10 @@ Future<ReturnHttp> httpBase(
         default:
           return ReturnHttp(error: null, message: null, data: null);
       }
-
+      print('HEADERS');
+      print(response.headers);
+      print('BODY');
+      print(body);
       if (response.statusCode == 200) {
         /* Si la petición fue exitosa, se procede a generar el mapa
             del body con la data correspondiente*/
@@ -148,6 +150,8 @@ Future<ReturnHttp> httpBase(
       } else {
         /* Si la petición no fue exitosa, se procede a generar una
             respuesta con el error asignado a su respectivo statusCode*/
+        print('LO MAS SEGURO ERROR');
+        print(response.body);
         return getErrorFromStatusCode(response);
       }
     } else {
