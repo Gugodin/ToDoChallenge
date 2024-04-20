@@ -1,8 +1,5 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+// ignore_for_file: public_member_api_docs, sort_constructors_first, must_be_immutable
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
-import 'package:pattern_formatter/date_formatter.dart';
 
 /* Textfield generico, el cual en base al tipo de su TextInputType raelizara
   validaciones, de igual forma para compartir tanto diseño como funcionalidades */
