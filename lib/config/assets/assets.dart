@@ -1,3 +1,4 @@
+/* Clase para almacenar todas las rutas de los assets */
 class AssetsApp {
   static String humanAsset = 'assets/images/human_task.png';
   static String saveTaksAsset = 'assets/gifs/save_task.gif';

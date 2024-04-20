@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:todoapp/presentation/providers/providers.dart';
 
+/* Esta parte es algo importante ya que tiene que ver con la funcionalidad
+  del filtro, sirve para mostrar al usuario la cantidad de tareas que le 
+  hace falta hacer y las ya hechas */
 class HeaderDescriptionSection extends ConsumerWidget {
   const HeaderDescriptionSection({super.key});
 
@@ -27,6 +30,11 @@ class HeaderDescriptionSection extends ConsumerWidget {
             theme: theme,
             title: 'Tareas por hacer: ',
             value: taskList.when(
+              // Sirve que para cuando el provier haga un refresh, este no se quede
+              // con la data anterior y ejecute el estado loading
+              skipLoadingOnRefresh: false,
+              /*Obtenemos el numero de tareas no realizadas, en base
+              a la lista de tareas que obtenemos de la API */
               data: (data) => Text(data
                   .where((element) => !element.isComplete)
                   .toList()
@@ -40,17 +48,17 @@ class HeaderDescriptionSection extends ConsumerWidget {
                     strokeWidth: 1,
                   )),
             ),
-            // value: taskList
-            //     .where((element) => !element.isComplete)
-            //     .toList()
-            //     .length
-            //     .toString(),
             filter: FilterType.undone,
           ),
           _ContainerDescription(
             theme: theme,
             title: 'Tareas hechas: ',
             value: taskList.when(
+              // Sirve que para cuando el provier haga un refresh, este no se quede
+              // con la data anterior y ejecute el estado loading
+              skipLoadingOnRefresh: false,
+              /*Obtenemos el numero de tareas realizadas, en base
+              a la lista de tareas que obtenemos de la API */
               data: (data) => Text(data
                   .where((element) => element.isComplete)
                   .toList()
@@ -72,6 +80,7 @@ class HeaderDescriptionSection extends ConsumerWidget {
   }
 }
 
+// Un contenedor generico el cual realiza las funciones de filtrado
 class _ContainerDescription extends ConsumerWidget {
   final String title;
   final Widget value;

@@ -1,11 +1,15 @@
+// ignore_for_file: unused_result
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:todoapp/config/colors/colors.dart';
-import 'package:todoapp/presentation/common/modals/show_bottom_modal_task.dart';
 
+import '../../../config/config.dart';
 import '../../../domain/domain.dart';
-import '../../../infraestructure/helpers/helpers.dart';
+import '../../providers/providers.dart';
+import '../common.dart';
 
+/* Widget generico el cual identificara si una task ya ha sido completada y cambiara
+  su diseño en base a esto. */
 class TaskCardWidget extends ConsumerWidget {
   final TaskModel task;
   const TaskCardWidget({super.key, required this.task});
@@ -27,18 +31,21 @@ class TaskCardWidget extends ConsumerWidget {
           child: Material(
             color: Colors.transparent,
             child: InkWell(
-              onTap: () {
-                print('Editar');
-                showBottomModalTask(
+              onTap: () async {
+                // Obtenemos la tarea seleccionada
+                final taskData =
+                    await ref.read(taskUseCasesProvider).getTaskById(task.id!);
+                // Mandamos los datos de la tarea seleccionada para edicion
+                await showBottomModalTask(
                     context,
                     IsEditingTaks(
-                        id: 10,
-                        titleTask: 'Tarea edicion',
-                        isCompleted: true,
-                        comments: 'Comentario edicion',
-                        description: 'Descripcion edicion',
-                        dueDate: '2222-22-22',
-                        tags: 'tags'));
+                        id: taskData.id!,
+                        titleTask: taskData.title,
+                        isCompleted: taskData.isComplete,
+                        comments: taskData.comments,
+                        description: taskData.description,
+                        dueDate: taskData.dueDate,
+                        tags: taskData.tags));
               },
               borderRadius: BorderRadius.circular(15.0),
               splashColor: Colors.grey[500],
@@ -55,8 +62,7 @@ class TaskCardWidget extends ConsumerWidget {
                     Expanded(
                         flex: 1,
                         child: _IconSection(
-                          isDone: task.isComplete,
-                          id: task.id!,
+                          task: task,
                         )),
                   ],
                 ),
@@ -72,20 +78,21 @@ class TaskCardWidget extends ConsumerWidget {
   }
 }
 
-class _DeleteButtonTask extends StatelessWidget {
+class _DeleteButtonTask extends ConsumerWidget {
   final int id;
   const _DeleteButtonTask({
     required this.id,
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ref) {
     return Positioned(
         top: -20,
-        right: -40,
+        right: -30,
         child: ElevatedButton(
-          onPressed: () {
-            NotificationHelper.instance.deleteTaskNoti();
+          onPressed: () async {
+            await ref.read(taskUseCasesProvider).deleteTask(id);
+            ref.refresh(taskProvider.future);
           },
           style: ElevatedButton.styleFrom(
               minimumSize: const Size(30, 30),
@@ -108,6 +115,7 @@ class _DescriptionTaskSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    print(task.description);
     return Column(
       children: [
         Expanded(
@@ -167,17 +175,23 @@ class _DescriptionTaskSection extends StatelessWidget {
   }
 }
 
-class _IconSection extends StatelessWidget {
-  final bool isDone;
-  final int id;
-  const _IconSection({required this.isDone, required this.id});
+class _IconSection extends ConsumerWidget {
+  final TaskModel task;
+  const _IconSection({required this.task});
 
   @override
-  Widget build(BuildContext context) {
-    return isDone
+  Widget build(BuildContext contex, WidgetRef ref) {
+    return task.isComplete
         ? Center(
             child: IconButton(
-              onPressed: () {},
+              onPressed: () async {
+                // Tomamos la misma task solo que cambiamos su valor de is_completed
+                final taskToToggle =
+                    task.copyWith(isComplete: !task.isComplete);
+                // Lo mandamos al servidor y actualizamos la lista
+                await ref.read(taskUseCasesProvider).updateTask(taskToToggle);
+                ref.refresh(taskProvider.future);
+              },
               padding: const EdgeInsets.all(20),
               icon: const Icon(
                 Icons.task_alt,

@@ -2,10 +2,12 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 
 import '../../../config/config.dart';
-
+/* Esta clase nos servirá para ser el mandado de notificaciones para 
+  hacer ver al usuario que acción realizo */
 class NotificationHelper {
   NotificationHelper._();
   // Usando patron singleton para evitar que se instancien mas de una vez la clase
+
   static final instance = NotificationHelper._();
 
   void createTaskNoti() {

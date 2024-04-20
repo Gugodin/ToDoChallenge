@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+/* Colores de la aplicacion */
 class ColorsApp {
   // For backgrounds
   static Color backGroundColor = const Color(0xFF070333);

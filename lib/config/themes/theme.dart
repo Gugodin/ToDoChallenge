@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../colors/colors.dart';
 
+/* Tema de la aplicacion */
+
 final themeData = ThemeData(
     brightness: Brightness.dark,
     colorScheme: ColorScheme.dark(
@@ -16,6 +18,8 @@ final themeData = ThemeData(
 
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
+      contentPadding: const EdgeInsets.symmetric(horizontal: 10),
+      
       fillColor: ColorsApp.brigthColor,
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(10.0),
@@ -54,7 +58,8 @@ final themeData = ThemeData(
           iconColor: const MaterialStatePropertyAll(Colors.white)),
     ),
     // Circular progres indicator theme
-    progressIndicatorTheme: const ProgressIndicatorThemeData(circularTrackColor: Colors.white),
+    progressIndicatorTheme:
+        const ProgressIndicatorThemeData(circularTrackColor: Colors.white),
 
     // Text theme
     textTheme: TextTheme(

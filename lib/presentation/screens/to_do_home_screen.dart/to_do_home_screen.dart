@@ -12,6 +12,8 @@ class ToDoHomeScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
+      /* Este parametro es importante, debido a que cuando el teclado surge desde
+        debajo del dispositivo si se queda en `true` este nos desplaza todo el body */
       resizeToAvoidBottomInset: false,
       body: const Column(
         children: [
@@ -21,6 +23,7 @@ class ToDoHomeScreen extends ConsumerWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
+          // Se muestra el modal para crear una tarea
           showBottomModalTask(context);
         },
         child: const Icon(

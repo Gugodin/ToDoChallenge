@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:todoapp/config/routes/routes.gr.dart';
 
+/* Rutas de la APP*/
 
 @AutoRouterConfig()      
 class AppRouter extends $AppRouter {      

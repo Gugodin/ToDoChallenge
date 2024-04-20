@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../common/common.dart';
 import '../../../providers/providers.dart';
 
+/* Apartado de la seccion de la lista de tareas (Parte de abajo) */
 class TaskListSection extends StatelessWidget {
   const TaskListSection({super.key});
 
@@ -37,15 +38,25 @@ class _ListTaskSection extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    /* Esta parte es importante, escuchamos a los 2 providers debido a que
+       el `taskProvider` nos indicará cuando ya se termino de realizarse la
+       peticion y el `taskList` se ve rellenado por el provider anterior
+       pero este mismo es filtrado por el `filterTaskProvider`
+       Ver: presentation/providers/task_provider/task_provider.dart */
     final taskList = ref.watch(filteredTaskProvider);
     final taskPetition = ref.watch(taskProvider);
     return taskPetition.when(
+      // Sirve que el refresh se dispare aunque el provider tenga cache
+      skipLoadingOnRefresh: false,
       data: (data) {
+        // Funcion para que se pongan los que no han sido completados al inicio
+        data.sort((a, b) => a.isComplete ? 1 : -1);
         return taskList.isEmpty
             ? const Center(
                 child: Text('No tienes tareas.'),
               )
             : ListView.separated(
+                clipBehavior: Clip.antiAlias,
                 padding: EdgeInsets.zero,
                 itemBuilder: (context, index) {
                   return TaskCardWidget(task: taskList[index]);
@@ -97,6 +108,7 @@ class _SegmentButtonSection extends ConsumerWidget {
         ],
         selected: {currentFilter},
         onSelectionChanged: (p0) {
+          // El filtro seleccionado se guarda en el provider
           ref.read(taskFilterProvider.notifier).setFilterType(p0.first);
         },
       ),

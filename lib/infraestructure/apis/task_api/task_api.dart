@@ -1,37 +1,36 @@
-import 'package:todoapp/domain/domain.dart';
-import 'package:todoapp/infraestructure/infraestructure.dart';
-import 'package:http/http.dart' as http;
-
 import '../../../config/config.dart';
+import '../../../domain/models/task_data/task_data.dart';
+import '../../helpers/helpers.dart';
 
 class TaskApi implements TaskGateWay {
-  final communHeaders = {
-    'Content-Type': 'application/x-www-form-urlencoded',
-    'Authorization':
-        'Bearer e864a0c9eda63181d7d65bc73e61e3dc6b74ef9b82f7049f1fc7d9fc8f29706025bd271d1ee1822b15d654a84e1a0997b973a46f923cc9977b3fcbb064179ecd',
-  };
 
-  final String token = 'javier_new';
 
+  // Funcion para actualizar una task por id
   @override
   Future<List<TaskModel>> getAllTaks() async {
-  
     ReturnHttp resp = await HttpHelper.get(
         url: TASK_URL,
-        body: {'token': token},
+        body: {'token': TOKEN},
         headers: Headers(
           replaceHeaders: true,
-          headersData: communHeaders,
+          headersData: COMMON_HEADERS,
         ));
-    return List<TaskModel>.generate((resp.data as List).length, (index) => TaskModel.fromMap((resp.data as List)[index]));
+    return List<TaskModel>.generate((resp.data as List).length,
+        (index) => TaskModel.fromMap((resp.data as List)[index]));
   }
-
+  // Funcion para crear una task
   @override
   Future<TaskModel> getTaskById(int id) async {
-    // TODO: implement getTaskById
-    throw UnimplementedError();
+    ReturnHttp resp = await HttpHelper.get(
+        url: '$TASK_URL/$id',
+        body: {'token': TOKEN},
+        headers: Headers(
+          replaceHeaders: true,
+          headersData: COMMON_HEADERS,
+        ));
+    return TaskModel.fromMap((resp.data as List).first);
   }
-
+  // Funcion para crear una task
   @override
   Future<void> createTask(TaskModel taskToCreate) async {
     ReturnHttp resp = await HttpHelper.post(
@@ -39,19 +38,38 @@ class TaskApi implements TaskGateWay {
         body: taskToCreate.toMap(),
         headers: Headers(
           replaceHeaders: true,
-          headersData: communHeaders,
+          headersData: COMMON_HEADERS,
         ));
+    if (resp.error == null) {
+      NotificationHelper.instance.createTaskNoti();
+    }
   }
-
+  // Funcion para actualizar una task por id
   @override
-  Future<void> updateTask(int id) async {
-    // TODO: implement updateTask
-    throw UnimplementedError();
+  Future<void> updateTask(TaskModel taskToCreate) async {
+    ReturnHttp resp = await HttpHelper.put(
+        url: '$TASK_URL/${taskToCreate.id}',
+        body: taskToCreate.toMap(),
+        headers: Headers(
+          replaceHeaders: true,
+          headersData: COMMON_HEADERS,
+        ));
+    if (resp.error == null) {
+      NotificationHelper.instance.updateTaskNoti();
+    }
   }
-
+  // Funcion para eliminar una task por id
   @override
   Future<void> deleteTask(int id) async {
-    // TODO: implement deleteTask
-    throw UnimplementedError();
+    ReturnHttp resp = await HttpHelper.delete(
+        url: '$TASK_URL/$id',
+        body: {'token': TOKEN},
+        headers: Headers(
+          replaceHeaders: true,
+          headersData: COMMON_HEADERS,
+        ));
+    if (resp.error == null) {
+      NotificationHelper.instance.deleteTaskNoti();
+    }
   }
 }

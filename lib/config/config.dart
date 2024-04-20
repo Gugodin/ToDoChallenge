@@ -3,3 +3,4 @@ export 'routes/routes.dart';
 export 'urls/urls.dart';
 export 'assets/assets.dart';
 export 'colors/colors.dart';
+export 'constants/constants.dart';

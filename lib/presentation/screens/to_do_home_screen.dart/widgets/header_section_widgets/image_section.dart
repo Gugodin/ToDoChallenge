@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:todoapp/config/assets/assets.dart';
 
+// Imagen de la parte de arriba
 class ImageSection extends StatelessWidget {
   const ImageSection({super.key});
 

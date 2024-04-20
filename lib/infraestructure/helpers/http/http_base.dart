@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 import '../../../config/urls/urls.dart';
+import '../../infraestructure.dart';
 
 // Tipos de PETICIONES que se pueden realizar
 // ignore: constant_identifier_names
@@ -137,16 +138,51 @@ Future<ReturnHttp> httpBase(
 
           break;
         case TypeHTPP.POST:
-          response = await http.post(url,
-              headers: _headersDefault, body: json.encode(body));
+          var req = http.Request('POST', url);
+
+          if (body != null) {
+            Map<String, String> bodyToSend = {};
+            body.forEach((key, value) {
+              if (value != null) {
+                bodyToSend[key] = value.toString();
+              }
+            });
+            req.bodyFields = bodyToSend;
+          }
+          req.headers.addAll(_headersDefault);
+          var res = await req.send();
+          response = await http.Response.fromStream(res);
           break;
         case TypeHTPP.PUT:
-          response = await http.put(url,
-              headers: _headersDefault, body: json.encode(body));
+          var req = http.Request('PUT', url);
+
+          if (body != null) {
+            Map<String, String> bodyToSend = {};
+            body.forEach((key, value) {
+              if (value != null) {
+                bodyToSend[key] = value.toString();
+              }
+            });
+            req.bodyFields = bodyToSend;
+          }
+          req.headers.addAll(_headersDefault);
+          var res = await req.send();
+          response = await http.Response.fromStream(res);
           break;
         case TypeHTPP.DELETE:
-          response = await http.delete(url,
-              headers: _headersDefault, body: json.encode(body));
+          var req = http.Request('DELETE', url);
+          if (body != null) {
+            Map<String, String> bodyToSend = {};
+            body.forEach((key, value) {
+              if (value != null) {
+                bodyToSend[key] = value.toString();
+              }
+            });
+            req.bodyFields = bodyToSend;
+          }
+          req.headers.addAll(_headersDefault);
+          var res = await req.send();
+          response = await http.Response.fromStream(res);
           break;
         default:
           return ReturnHttp(error: null, message: null, data: null);
@@ -179,6 +215,7 @@ Future<ReturnHttp> httpBase(
 }
 
 ReturnHttp getErrorFromStatusCode(http.Response response) {
+  NotificationHelper.instance.errorTaskNoti();
   switch (response.statusCode) {
     case 401:
       return ReturnHttp(
