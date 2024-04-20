@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 // ignore_for_file: unused_result
 
 import 'package:flutter/material.dart';
@@ -62,7 +63,17 @@ class TaskCardWidget extends ConsumerWidget {
                     Expanded(
                         flex: 1,
                         child: _IconSection(
-                          task: task,
+                          isCompleted: task.isComplete,
+                          onTap: () async {
+                            // Tomamos la misma task solo que cambiamos su valor de is_completed
+                            final taskToToggle =
+                                task.copyWith(isComplete: !task.isComplete);
+                            // Lo mandamos al servidor y actualizamos la lista
+                            await ref
+                                .read(taskUseCasesProvider)
+                                .updateTask(taskToToggle);
+                            ref.refresh(taskProvider.future);
+                          },
                         )),
                   ],
                 ),
@@ -115,7 +126,6 @@ class _DescriptionTaskSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    print(task.description);
     return Column(
       children: [
         Expanded(
@@ -176,22 +186,19 @@ class _DescriptionTaskSection extends StatelessWidget {
 }
 
 class _IconSection extends ConsumerWidget {
-  final TaskModel task;
-  const _IconSection({required this.task});
+  final bool isCompleted;
+  final Function() onTap;
+  const _IconSection({
+    required this.isCompleted,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext contex, WidgetRef ref) {
-    return task.isComplete
+    return isCompleted
         ? Center(
             child: IconButton(
-              onPressed: () async {
-                // Tomamos la misma task solo que cambiamos su valor de is_completed
-                final taskToToggle =
-                    task.copyWith(isComplete: !task.isComplete);
-                // Lo mandamos al servidor y actualizamos la lista
-                await ref.read(taskUseCasesProvider).updateTask(taskToToggle);
-                ref.refresh(taskProvider.future);
-              },
+              onPressed: () => onTap(),
               padding: const EdgeInsets.all(20),
               icon: const Icon(
                 Icons.task_alt,
@@ -201,7 +208,7 @@ class _IconSection extends ConsumerWidget {
           )
         : Center(
             child: IconButton(
-              onPressed: () {},
+              onPressed: () => onTap(),
               padding: const EdgeInsets.all(20),
               icon: const Icon(
                 Icons.circle_outlined,
