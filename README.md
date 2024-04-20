@@ -55,7 +55,7 @@ Se utilizaron los siguientes paquetes:
     
     bot_toast: ^4.1.3 -> Para notificaciones al usuario.
 
-    lutter_localizations: -> Para cambiar el idioma del datePicker
-    
+    flutter_localizations: -> Para cambiar el idioma del datePicker
+
 Comunicacion con el programador -> javiergutierrezesp@hotmail.com
 
