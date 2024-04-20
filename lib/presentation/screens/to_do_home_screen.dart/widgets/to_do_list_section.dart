@@ -45,32 +45,35 @@ class _ListTaskSection extends ConsumerWidget {
        Ver: presentation/providers/task_provider/task_provider.dart */
     final taskList = ref.watch(filteredTaskProvider);
     final taskPetition = ref.watch(taskProvider);
-    return taskPetition.when(
-      // Sirve que el refresh se dispare aunque el provider tenga cache
-      skipLoadingOnRefresh: false,
-      data: (data) {
-        // Funcion para que se pongan los que no han sido completados al inicio
-        data.sort((a, b) => a.isComplete ? 1 : -1);
-        return taskList.isEmpty
-            ? const Center(
-                child: Text('No tienes tareas.'),
-              )
-            : ListView.separated(
-                clipBehavior: Clip.antiAlias,
-                padding: EdgeInsets.zero,
-                itemBuilder: (context, index) {
-                  return TaskCardWidget(task: taskList[index]);
-                },
-                separatorBuilder: (context, index) => const SizedBox(
-                      height: 20,
-                    ),
-                itemCount: taskList.length);
-      },
-      error: (error, stackTrace) => const Center(
-        child: Text('Hubo un error en la petición.'),
-      ),
-      loading: () => const Center(
-        child: CircularProgressIndicator(),
+    return Padding(
+      padding: const EdgeInsets.only(top: 10.0),
+      child: taskPetition.when(
+        // Sirve que el refresh se dispare aunque el provider tenga cache
+        skipLoadingOnRefresh: false,
+        data: (data) {
+          // Funcion para que se pongan los que no han sido completados al inicio
+          data.sort((a, b) => a.isComplete ? 1 : -1);
+          return taskList.isEmpty
+              ? const Center(
+                  child: Text('No tienes tareas.'),
+                )
+              : ListView.separated(
+                  clipBehavior: Clip.antiAlias,
+                  padding: EdgeInsets.zero,
+                  itemBuilder: (context, index) {
+                    return TaskCardWidget(task: taskList[index]);
+                  },
+                  separatorBuilder: (context, index) => const SizedBox(
+                        height: 20,
+                      ),
+                  itemCount: taskList.length);
+        },
+        error: (error, stackTrace) => const Center(
+          child: Text('Hubo un error en la petición.'),
+        ),
+        loading: () => const Center(
+          child: CircularProgressIndicator(),
+        ),
       ),
     );
   }
@@ -82,28 +85,33 @@ class _SegmentButtonSection extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final currentFilter = ref.watch(taskFilterProvider);
-
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 20.0),
+    Size size = MediaQuery.of(context).size;
+    // print((size.height / 7) / 8);
+    return Container(
+      height: 0,
+      padding: EdgeInsets.symmetric(vertical: ((size.width * 0.2)) * 0.2),
       child: SegmentedButton<FilterType>(
-        segments: const [
+        segments: [
           ButtonSegment(
               value: FilterType.all,
               label: Text(
                 'Todas',
-                style: TextStyle(color: Colors.white),
+                style: TextStyle(
+                    color: Colors.white, fontSize: size.width * 0.035),
               )),
           ButtonSegment(
               value: FilterType.undone,
               label: Text(
                 'Sin hacer',
-                style: TextStyle(color: Colors.white),
+                style: TextStyle(
+                    color: Colors.white, fontSize: size.width * 0.035),
               )),
           ButtonSegment(
               value: FilterType.done,
               label: Text(
                 'Hechas',
-                style: TextStyle(color: Colors.white),
+                style: TextStyle(
+                    color: Colors.white, fontSize: size.width * 0.035),
               )),
         ],
         selected: {currentFilter},

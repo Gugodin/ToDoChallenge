@@ -99,7 +99,7 @@ class _ContainerDescription extends ConsumerWidget {
     Size size = MediaQuery.of(context).size;
     return Container(
       margin: const EdgeInsets.only(top: 10),
-      width: size.width * 0.4,
+      width: size.width * 0.43,
       decoration: BoxDecoration(
           color: theme.colorScheme.primary,
           borderRadius: BorderRadius.circular(10)),

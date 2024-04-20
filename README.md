@@ -13,6 +13,9 @@ Como se esta utilizando codigo auto generado de flutter de los paquetes
 
         `flutter packages pub run build_runner build`
 
+# Dispositivos probados
+    -Iphone 15 plus
+    -Iphone 11
 # Arquitectura
 Este proyecto esta basado en la arquitectura CLEAN - ARQUITECTURE por lo cual
 las carpetas estan separadas de la siguiente forma:
@@ -53,3 +56,4 @@ Se utilizaron los siguientes paquetes:
     bot_toast: ^4.1.3 -> Para notificaciones al usuario.
 
 Comunicacion con el programador -> javiergutierrezesp@hotmail.com
+

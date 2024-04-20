@@ -7,12 +7,7 @@ class HeaderSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
-      children: [
-        Expanded(flex: 2, child: _BurgerButtonSection()),
-        Expanded(flex: 3, child: _HeaderSection()),
-      ],
-    );
+    return _HeaderSection();
   }
 }
 
@@ -23,10 +18,11 @@ class _BurgerButtonSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Align(
-      alignment: Alignment.bottomLeft,
-      child: IconButton(onPressed: () {}, icon: const Icon(Icons.menu)),
-    );
+    Size size = MediaQuery.of(context).size;
+    return Positioned(
+        top: size.height * 0.05,
+        right: 0,
+        child: IconButton(onPressed: () {}, icon: const Icon(Icons.menu)));
   }
 }
 
@@ -36,10 +32,15 @@ class _HeaderSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Row(
+    return const Stack(
       children: [
-        Expanded(flex: 3, child: HeaderDescriptionSection()),
-        Expanded(flex: 2, child: ImageSection()),
+        Row(
+          children: [
+            Expanded(flex: 3, child: HeaderDescriptionSection()),
+            Expanded(flex: 2, child: ImageSection()),
+          ],
+        ),
+        _BurgerButtonSection()
       ],
     );
   }
