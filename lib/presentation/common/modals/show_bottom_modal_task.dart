@@ -1,7 +1,9 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first, use_build_context_synchronously, unused_result
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:todoapp/domain/domain.dart';
+
 import '../../providers/providers.dart';
 import '../common.dart';
 
@@ -109,6 +111,12 @@ class _ModalTaskState extends ConsumerState<ModalTask> {
                   dateController: dateController,
                   tagsController: tagsController,
                   descriptionController: descriptionController,
+                  onSelectedDatePicker: (onSelectedDate) {
+                    setState(() {
+                      dateController =
+                          TextEditingController(text: onSelectedDate);
+                    });
+                  },
                   onCompletedCheck: (onCompleted) {
                     setState(() {
                       isCompleted = onCompleted;
@@ -150,6 +158,7 @@ class _ModalTaskState extends ConsumerState<ModalTask> {
       ),
     );
   }
+
   // Metodo para regresar el task data model que se creará
   TaskModel createTaskModel() {
     return TaskModel(
@@ -172,11 +181,12 @@ class _ModalTaskState extends ConsumerState<ModalTask> {
 class _TextFieldsSection extends StatefulWidget {
   final TextEditingController titleController;
   final TextEditingController commentsController;
-  final TextEditingController dateController;
+  TextEditingController dateController;
   final TextEditingController tagsController;
   final TextEditingController descriptionController;
   bool isCompleted;
   final Function(bool onCompleted) onCompletedCheck;
+  final Function(String onSelectedDate) onSelectedDatePicker;
 
   _TextFieldsSection({
     required this.titleController,
@@ -186,6 +196,7 @@ class _TextFieldsSection extends StatefulWidget {
     required this.descriptionController,
     required this.isCompleted,
     required this.onCompletedCheck,
+    required this.onSelectedDatePicker,
   });
 
   @override
@@ -250,7 +261,14 @@ class _TextFieldsSectionState extends State<_TextFieldsSection> {
                     child: TaskTextField(
                         controller: widget.dateController,
                         label: 'Fecha',
-                        hintText: 'YYYY-MM-DD',
+                        hintText: 'Selecciona fecha',
+                        onDateSelected: (dateSelected) {
+                          setState(() {
+                            widget.dateController =
+                                TextEditingController(text: dateSelected);
+                            widget.onSelectedDatePicker(dateSelected);
+                          });
+                        },
                         isRequired: false,
                         inputType: TextInputType.datetime),
                   ),

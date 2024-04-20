@@ -14,12 +14,19 @@ final themeData = ThemeData(
     bottomSheetTheme: BottomSheetThemeData(
         backgroundColor: ColorsApp.backGroundColor,
         modalBarrierColor: Colors.black.withOpacity(0.2)),
-    //Text Form Field theme
+    // Date picker theme
+    datePickerTheme: const DatePickerThemeData(
+      headerHelpStyle: TextStyle(fontSize: 25),
+        cancelButtonStyle: ButtonStyle(
+            textStyle: MaterialStatePropertyAll(TextStyle(fontSize: 20))),
+        confirmButtonStyle: ButtonStyle(
+            textStyle: MaterialStatePropertyAll(TextStyle(fontSize: 20))),
+            ),
 
+    //Text Form Field theme
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
       contentPadding: const EdgeInsets.symmetric(horizontal: 10),
-      
       fillColor: ColorsApp.brigthColor,
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(10.0),
